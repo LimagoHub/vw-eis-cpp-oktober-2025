@@ -5,28 +5,34 @@
  * Author : JoachimWagner
  */ 
 
-#define F_CPU 16000000UL
+
 #include <avr/io.h>
-#define BAUD 9600
-#define MYUBRR ((F_CPU/(16UL*BAUD))-1)
+#include "serial.h"
+#include <stdlib.h>
+
+
+void setUp() {
+	
+	serial_init();
+	serial_send_string("\r\n");
+	serial_send_float(23.69324, 5, 2);
+	 
+}
+void loop() {
+	
+	uint8_t value = serial_get_byte();
+	serial_send_byte(value);
+	
+}
 
 int main(void)
 {
-    UBRRH = (uint8_t) (MYUBRR >> 8);
-    UBRRL = (uint8_t) MYUBRR;
-	
-	UCSRB |= (1 << RXCIE);
-	UCSRB |= (1 << RXEN) | (1 << TXEN);
-	UCSRC |= (1 << UCSZ1) | (1 << UCSZ0) |(1 << URSEL); // Protokoll 8 Bit, keine Paritaet, 1 Stoppbit
-	
+   setUp();
     while (1) 
     {
-		
-		while ((UCSRA & (1 << RXC)) == 0){}
-		uint8_t value = UDR;
-		
-		while (! (UCSRA & (1<<UDRE)));
-		UDR = value;
+	
+		loop();
     }
 }
+
 

@@ -1,0 +1,46 @@
+Änderungsauftrag – Erweiterung der EMU_Serverraum_Steuerung
+
+Neu hinzugefügt:
+
+Überwachung der Serverraumtür
+
+Zustandsanzeige „Türstatus“ (erlaubt/untersagt)
+
+Alarmfunktion bei unzulässigem Zutritt
+
+Temperaturabhängige Lüfterregelung
+
+Beschreibung der Änderungen:
+
+Türüberwachung
+Die Serverraumtür wird über einen Taster simuliert. Der Türstatus (AUF/ZU) wird auf dem Monitor angezeigt. Zusätzlich visualisieren zwei LEDs den Zutrittsstatus:
+
+Grün (ERLAUBT): Zutritt ist erlaubt, wenn der Sauerstoffgehalt über 17 % liegt und das Stickstoffventil geschlossen ist.
+
+Rot (UNTERSAGT): Zutritt ist nicht erlaubt, wenn eine der Bedingungen nicht erfüllt ist.
+
+Alarmfunktion
+Wird die Tür geöffnet, obwohl der Zutritt „UNTERSAGT“ ist, wird ein Alarm ausgelöst. Dabei wird das Stickstoffventil automatisch geschlossen. Auf dem Monitor erscheint eine zusätzliche Meldung, z. B.:
+Alarm: Tuer unerlaubt geoeffnet!
+
+Lüfterregelung
+Die Lüftergeschwindigkeit wird nun automatisch an den gemessenen Temperaturbereich angepasst:
+
+< 15 °C: 300 U/min
+
+15 – 28 °C: 700 U/min
+
+> 28 °C: 1000 U/min
+
+Beispiel einer Ausgabe auf dem Monitor:
+----------------------
+Sauerstoffgehalt: > 17 %
+Temperatur: 15 Grad bis 28 Grad
+Luefter: 700 U/min
+Modus: AUTOMATIK
+Stickstoffventil: ZU
+Tuerzugang: untersagt
+Tuerstatus: AUF
+
+Alarm: Tuer unerlaubt geoeffnet!
+----------------------
